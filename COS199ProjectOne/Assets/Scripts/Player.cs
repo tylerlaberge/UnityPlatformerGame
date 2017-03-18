@@ -27,10 +27,6 @@ public class Player : MonoBehaviour {
 		audioSource = GetComponent<AudioSource>();
 	}
 	
-	public void setRespawnPoint(Vector3 position) {
-		this.respawnPoint = position;
-	}
-	
 	void Respawn() {
 		horizForceVector.x = 0.0f;
 		horizForceVector.y = 0.0f;
@@ -70,6 +66,12 @@ public class Player : MonoBehaviour {
 	
 	}
 	
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.tag == "Checkpoint") {
+			this.respawnPoint = other.gameObject.transform.position;
+		}
+	}
+	
 	void OnCollisionEnter(Collision collision) 
 	{
 		// Only add jump force if the collision normal is straight up
@@ -78,6 +80,7 @@ public class Player : MonoBehaviour {
 		rb.AddForce(contactPoint.normal * bounceForce, ForceMode.Impulse);
 		
 		audioSource.PlayOneShot(bounce);
+		
 	}
 
 }
