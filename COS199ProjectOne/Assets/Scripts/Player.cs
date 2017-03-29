@@ -106,12 +106,16 @@ public class Player : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision collision) 
 	{
-		// Only add jump force if the collision normal is straight up
-		ContactPoint contactPoint = collision.contacts[0];
-		
-		rb.AddForce(contactPoint.normal * bounceForce, ForceMode.Impulse);
-		
-		audioSource.PlayOneShot(bounce);
+		if (collision.gameObject.tag == "Enemy") {
+			Respawn();
+		}
+		else {
+			// Only add jump force if the collision normal is straight up
+			ContactPoint contactPoint = collision.contacts[0];
+			rb.AddForce(contactPoint.normal * bounceForce, ForceMode.Impulse);
+			
+			audioSource.PlayOneShot(bounce);
+		}
 		
 	}
 

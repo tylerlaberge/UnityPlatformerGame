@@ -8,6 +8,8 @@ TagManager:
   - PowerUpBounce
   - PowerUpScale
   - PowerUpSpeed
+  - Enemy
+  - Boundary
   layers:
   - Default
   - TransparentFX
