@@ -83,6 +83,12 @@ public class Player : MonoBehaviour {
 			Destroy(other.gameObject);
 			Invoke("PowerUpScaleEnd", 5);
 		}
+		else if (other.gameObject.tag == "PowerUpSpeed") {
+			this.maxXVelocity *= 2;
+			this.xVelocity *= 2;
+			Destroy(other.gameObject);
+			Invoke("PowerUpSpeedEnd", 5);
+		}
 	}
 	
 	void PowerUpBounceEnd() {
@@ -91,6 +97,11 @@ public class Player : MonoBehaviour {
 	
 	void PowerUpScaleEnd() {
 		this.transform.localScale /= 2;
+	}
+	
+	void PowerUpSpeedEnd() {
+		this.xVelocity /= 2;
+		this.maxXVelocity /= 2;
 	}
 	
 	void OnCollisionEnter(Collision collision) 
