@@ -107,6 +107,7 @@ public class Player : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) 
 	{
 		if (collision.gameObject.tag == "Enemy") {
+			collision.gameObject.GetComponent<Enemy>().playAudio();
 			Respawn();
 		}
 		else {
