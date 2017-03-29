@@ -17,6 +17,7 @@ public class Player : MonoBehaviour {
 	
 	private Vector3 respawnPoint;
 	
+	private float orig_bounce_force;
 	
 	// Use this for initializationd
 	void Start () {
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour {
 		xVelocity = 0.0f;
 		respawnPoint = this.transform.position;
 		audioSource = GetComponent<AudioSource>();
+		
+		orig_bounce_force = this.bounceForce;
 	}
 	
 	void Respawn() {
@@ -70,6 +73,24 @@ public class Player : MonoBehaviour {
 		if (other.gameObject.tag == "Checkpoint") {
 			this.respawnPoint = other.gameObject.transform.position;
 		}
+		else if (other.gameObject.tag == "PowerUpBounce") {
+			this.bounceForce *= 1.5f;
+			Destroy(other.gameObject);
+			Invoke("PowerUpBounceEnd", 5);
+		}
+		else if (other.gameObject.tag == "PowerUpScale") {
+			this.transform.localScale *= 2;
+			Destroy(other.gameObject);
+			Invoke("PowerUpScaleEnd", 5);
+		}
+	}
+	
+	void PowerUpBounceEnd() {
+		this.bounceForce = this.orig_bounce_force;
+	}
+	
+	void PowerUpScaleEnd() {
+		this.transform.localScale /= 2;
 	}
 	
 	void OnCollisionEnter(Collision collision) 
