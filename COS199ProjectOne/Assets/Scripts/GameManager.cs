@@ -51,6 +51,10 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene(getNextLevelName());
 	}
 	
+	public void EndGame() {
+		SceneManager.LoadScene("main");
+	}
+	
 	private string getNextLevelName()
 	{
 		levelNum++;
