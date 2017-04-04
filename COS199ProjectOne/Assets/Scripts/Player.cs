@@ -29,7 +29,9 @@ public class Player : MonoBehaviour {
 	}
 	
 	void Respawn() {
-		audioManager.playRespawn();
+		if (audioManager != null) {
+			audioManager.playRespawn();
+		}
 		
 		horizForceVector.x = 0.0f;
 		horizForceVector.y = 0.0f;
@@ -73,27 +75,33 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Checkpoint") {
 			if (this.respawnPoint != other.gameObject.transform.position) {
-				audioManager.playCheckpoint();
+				if (audioManager != null) {
+					audioManager.playCheckpoint();
+				}
 				this.respawnPoint = other.gameObject.transform.position;
 			}
 		}
 		else if (other.gameObject.tag == "PowerUpBounce") {
-			audioManager.playPowerUp();
+			if (audioManager != null) {
+				audioManager.playPowerUp();
+			}
 			
 			this.bounceForce *= 1.5f;
 			Destroy(other.gameObject);
 			Invoke("PowerUpBounceEnd", 5);
 		}
 		else if (other.gameObject.tag == "PowerUpScale") {
-			audioManager.playPowerUp();
-			
+			if (audioManager != null) {
+				audioManager.playPowerUp();
+			}
 			this.transform.localScale *= 2;
 			Destroy(other.gameObject);
 			Invoke("PowerUpScaleEnd", 5);
 		}
 		else if (other.gameObject.tag == "PowerUpSpeed") {
-			audioManager.playPowerUp();
-			
+			if (audioManager != null) {
+				audioManager.playPowerUp();
+			}
 			this.maxXVelocity *= 2;
 			this.xVelocity *= 2;
 			Destroy(other.gameObject);
@@ -102,19 +110,25 @@ public class Player : MonoBehaviour {
 	}
 	
 	void PowerUpBounceEnd() {
-		audioManager.playPowerDown();
+		if (audioManager != null) {
+			audioManager.playPowerDown();
+		}
 		
 		this.bounceForce = this.orig_bounce_force;
 	}
 	
 	void PowerUpScaleEnd() {
-		audioManager.playPowerDown();
+		if (audioManager != null) {
+			audioManager.playPowerDown();
+		}
 		
 		this.transform.localScale /= 2;
 	}
 	
 	void PowerUpSpeedEnd() {
-		audioManager.playPowerDown();
+		if (audioManager != null) {
+			audioManager.playPowerDown();
+		}
 		
 		this.xVelocity /= 2;
 		this.maxXVelocity /= 2;
@@ -123,12 +137,15 @@ public class Player : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) 
 	{
 		if (collision.gameObject.tag == "Enemy") {
-			audioManager.playPunch();
+			if (audioManager != null) {
+				audioManager.playPunch();
+			}
 			Respawn();
 		}
 		else {
-			audioManager.playBounce();
-			
+			if (audioManager != null) {
+				audioManager.playBounce();
+			}
 			ContactPoint contactPoint = collision.contacts[0];
 			rb.AddForce(contactPoint.normal * bounceForce, ForceMode.Impulse);
 			

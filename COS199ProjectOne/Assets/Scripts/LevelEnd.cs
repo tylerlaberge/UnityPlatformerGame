@@ -13,8 +13,10 @@ public class LevelEnd : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision collision)
 	{
-		this.audioManager.playLevelEnd();
-		this.gameManager.LoadNextLevel();
+		if (gameManager != null) {
+			this.audioManager.playLevelEnd();
+			this.gameManager.LoadNextLevel();
+		}
 	}
 }
 
