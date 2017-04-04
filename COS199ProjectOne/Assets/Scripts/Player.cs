@@ -3,37 +3,38 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	
-	public AudioClip bounce;
 	public float bounceForce;
 	public float horizForce;
 	public float xVelocity;
 	public float maxXVelocity;
+	public float yMin;
 	
 	private Rigidbody rb;
 	private Vector3 horizForceVector;
-	
-	public float yMin;
-	private AudioSource audioSource;
-	
 	private Vector3 respawnPoint;
-	
 	private float orig_bounce_force;
+	
+	private AudioManager audioManager;
 	
 	// Use this for initializationd
 	void Start () {
+		xVelocity = 0.0f;
+		
 		rb = GetComponent<Rigidbody>();
 		horizForceVector = Vector3.zero;
-		xVelocity = 0.0f;
-		respawnPoint = this.transform.position;
-		audioSource = GetComponent<AudioSource>();
-		
+		respawnPoint = this.transform.position;	
 		orig_bounce_force = this.bounceForce;
+		
+		audioManager = FindObjectOfType<AudioManager>();		
 	}
 	
 	void Respawn() {
+		audioManager.playRespawn();
+		
 		horizForceVector.x = 0.0f;
 		horizForceVector.y = 0.0f;
 		rb.velocity = horizForceVector;
+		
 		this.transform.position = respawnPoint;
 	}
 	
@@ -71,19 +72,28 @@ public class Player : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Checkpoint") {
-			this.respawnPoint = other.gameObject.transform.position;
+			if (this.respawnPoint != other.gameObject.transform.position) {
+				audioManager.playCheckpoint();
+				this.respawnPoint = other.gameObject.transform.position;
+			}
 		}
 		else if (other.gameObject.tag == "PowerUpBounce") {
+			audioManager.playPowerUp();
+			
 			this.bounceForce *= 1.5f;
 			Destroy(other.gameObject);
 			Invoke("PowerUpBounceEnd", 5);
 		}
 		else if (other.gameObject.tag == "PowerUpScale") {
+			audioManager.playPowerUp();
+			
 			this.transform.localScale *= 2;
 			Destroy(other.gameObject);
 			Invoke("PowerUpScaleEnd", 5);
 		}
 		else if (other.gameObject.tag == "PowerUpSpeed") {
+			audioManager.playPowerUp();
+			
 			this.maxXVelocity *= 2;
 			this.xVelocity *= 2;
 			Destroy(other.gameObject);
@@ -92,14 +102,20 @@ public class Player : MonoBehaviour {
 	}
 	
 	void PowerUpBounceEnd() {
+		audioManager.playPowerDown();
+		
 		this.bounceForce = this.orig_bounce_force;
 	}
 	
 	void PowerUpScaleEnd() {
+		audioManager.playPowerDown();
+		
 		this.transform.localScale /= 2;
 	}
 	
 	void PowerUpSpeedEnd() {
+		audioManager.playPowerDown();
+		
 		this.xVelocity /= 2;
 		this.maxXVelocity /= 2;
 	}
@@ -107,17 +123,15 @@ public class Player : MonoBehaviour {
 	void OnCollisionEnter(Collision collision) 
 	{
 		if (collision.gameObject.tag == "Enemy") {
-			collision.gameObject.GetComponent<Enemy>().playAudio();
+			audioManager.playPunch();
 			Respawn();
 		}
 		else {
-			// Only add jump force if the collision normal is straight up
+			audioManager.playBounce();
+			
 			ContactPoint contactPoint = collision.contacts[0];
 			rb.AddForce(contactPoint.normal * bounceForce, ForceMode.Impulse);
 			
-			audioSource.PlayOneShot(bounce);
 		}
-		
 	}
-
 }

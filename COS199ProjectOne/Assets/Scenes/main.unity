@@ -1501,6 +1501,58 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1412246557}
+--- !u!1 &1460740866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1460740867}
+  - component: {fileID: 1460740868}
+  m_Layer: 5
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1460740867
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1460740866}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1.4625, y: 1.4625, z: 1.4625}
+  m_Children: []
+  m_Father: {fileID: 1714611183}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 187.01147, y: 123.674324}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1460740868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1460740866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57632f9ed4ea6424ba2eea3a41d5ceb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipBounce: {fileID: 8300000, guid: 9ca621c9774864e6e8840f7223d0d11a, type: 3}
+  clipRespawn: {fileID: 8300000, guid: 43433aaccb63bb947ab18448e81dd343, type: 3}
+  clipPunch: {fileID: 8300000, guid: 5640b8bf7d5d4c04e8b26d8f51d7e5c4, type: 3}
+  clipPowerUp: {fileID: 8300000, guid: 1b4f91b88bd706643807494ac9a02366, type: 3}
+  clipPowerDown: {fileID: 8300000, guid: c724eb4bab0265b479f52fb121786dc7, type: 3}
+  clipCheckpoint: {fileID: 8300000, guid: a819fef33e0e504428d9bc422869074b, type: 3}
+  clipLevelEnd: {fileID: 8300000, guid: 084bcb27695628a4c97205d02dfe3285, type: 3}
 --- !u!1 &1526149653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,6 +1820,7 @@ Transform:
   - {fileID: 1526149656}
   - {fileID: 1676510439}
   - {fileID: 1163143397}
+  - {fileID: 1460740867}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

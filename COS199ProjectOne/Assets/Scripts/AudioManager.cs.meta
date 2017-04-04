@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 57632f9ed4ea6424ba2eea3a41d5ceb2
+timeCreated: 1491268286
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - clipBounce: {fileID: 8300000, guid: 9ca621c9774864e6e8840f7223d0d11a, type: 3}
+  - clipRespawn: {fileID: 8300000, guid: 43433aaccb63bb947ab18448e81dd343, type: 3}
+  - clipPunch: {fileID: 8300000, guid: 5640b8bf7d5d4c04e8b26d8f51d7e5c4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

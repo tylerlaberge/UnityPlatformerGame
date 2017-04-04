@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelEnd : MonoBehaviour {
-
+	
+	private GameManager gameManager;
+	private AudioManager audioManager;
+	
+	void Start() {
+		this.gameManager = FindObjectOfType<GameManager>();
+		this.audioManager = FindObjectOfType<AudioManager>();
+	}
 	void OnCollisionEnter(Collision collision)
 	{
-		GameManager gameManager = FindObjectOfType<GameManager>();
-		if (gameManager != null) {
-			gameManager.LoadNextLevel();
-		} 
+		this.audioManager.playLevelEnd();
+		this.gameManager.LoadNextLevel();
 	}
 }
+
